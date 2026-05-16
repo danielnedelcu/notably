@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     "@yuta-inoue-ph/nuxt-vcalendar",
     "vue-sonner/nuxt",
     "@vee-validate/nuxt",
+    "nuxt-gtag",
   ],
 
   fonts: {
@@ -187,5 +188,9 @@ export default defineNuxtConfig({
   },
   scheduledTasks: {
     "0 * * * *": ["cleanup:empty-posts"], // runs every hour
+  },
+  gtag: {
+    enabled: process.env.NODE_ENV === "production",
+    id: process.env.GA_MEASUREMENT_ID,
   },
 });
