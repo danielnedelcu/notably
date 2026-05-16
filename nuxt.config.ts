@@ -190,7 +190,7 @@ export default defineNuxtConfig({
     "0 * * * *": ["cleanup:empty-posts"], // runs every hour
   },
   gtag: {
-    enabled: process.env.NODE_ENV === "production",
+    enabled: true, //process.env.NODE_ENV === "production",
     id: process.env.GA_MEASUREMENT_ID,
   },
 });

@@ -3,13 +3,12 @@
     <UiCardHeader>
       <div class="flex items-center justify-between">
         <UiCardTitle>Most Active Posts</UiCardTitle>
-        <!-- Reuses the same `useFetch` key as ActiveViewsBarChart — one network round-trip -->
         <UiButton
           variant="ghost"
           size="icon-sm"
           :disabled="pending"
           aria-label="Refresh most active posts"
-          @click="refresh()"
+          @click="refresh"
         >
           <Icon
             name="lucide:refresh-cw"
@@ -30,11 +29,11 @@
         No views recorded yet.
       </div>
 
-      <UiItem v-for="post in topPosts" :key="post.id" as-child size="sm">
+      <UiItem v-for="post in topPosts" :key="post.slug" as-child size="sm">
         <NuxtLink
-          :to="post.slug ? `/posts/${post.slug}` : `/admin/posts/${post.id}`"
-          :target="post.slug ? '_blank' : undefined"
-          :rel="post.slug ? 'noopener noreferrer' : undefined"
+          :to="`/posts/${post.slug}`"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <UiItemMedia variant="icon">
             <Icon name="lucide:file-text" />
@@ -56,27 +55,35 @@
 
 <script setup lang="ts">
 /**
- * Admin card: lists top posts by view count from `GET /api/admin/analytics/pageviews`.
+ * Admin card: lists the top blog posts by page views over the last 180 days,
+ * sourced from GA4 via /api/admin/analytics/top-posts.
  *
- * Shares the same `useFetch` cache key as `ActiveViewsBarChart.vue`, so both widgets
- * reuse one response when rendered together (no duplicate `/pageviews` requests).
- *
- * The API already returns `topPosts` sorted by views (desc); we expose that list as-is.
+ * GA4 only knows URL paths and page titles — not database IDs. We extract the
+ * slug from the path (e.g. "/posts/my-cool-post" → "my-cool-post") and link to
+ * the public post page. If you need links to the admin edit view, you'd have
+ * to enrich each row with a lookup against /api/posts/by-slug or similar.
  */
-import type { PageviewsAnalytics } from "./ActiveViewsBarChart.vue";
+type TopPostRow = {
+  path: string;
+  slug: string;
+  title: string;
+  views: number;
+  activeUsers: number;
+};
 
-const { data, pending, refresh } = await useFetch<PageviewsAnalytics>(
-  "/api/admin/analytics/pageviews",
+const { data, pending, refresh } = await useFetch<TopPostRow[]>(
+  "/api/admin/analytics/top-posts",
   {
     credentials: "include",
-    key: "admin-analytics-pageviews-posts",
+    key: "admin-analytics-top-posts",
+    getCachedData: () => undefined,
   },
 );
 
-/** Ordered by views descending from the API (top N). */
-const topPosts = computed(() => data.value?.topPosts ?? []);
+/** Already returned sorted by views desc from the API. */
+const topPosts = computed(() => data.value ?? []);
 
-/** Localized count + “view” / “views” for the description line. */
+/** Localized count + "view" / "views" for the description line. */
 function formatViewLabel(count: number) {
   const n = count.toLocaleString();
   return `${n} ${count === 1 ? "view" : "views"}`;

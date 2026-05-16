@@ -106,6 +106,8 @@
  */
 import type { Post } from "~/types/blog";
 import ScrollProgress from "~/components/ScrollProgress.vue";
+import { useAnalytics } from "~/composables/useAnalytics";
+const { trackPostLiked } = useAnalytics();
 
 /** Row shape returned by categories/tags APIs */
 type TaxonomyRow = { id: string; name: string };
@@ -185,6 +187,11 @@ async function toggleLike() {
     );
     liked.value = result.liked;
     likeCount.value = result.count;
+
+    // Fire analytics event only on a new like, not unlike
+    if (result.liked && post.value?.title) {
+      trackPostLiked(id, post.value.title);
+    }
   } finally {
     likeBusy.value = false;
   }
