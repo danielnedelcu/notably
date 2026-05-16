@@ -13,9 +13,9 @@ export default defineEventHandler(async () => {
   // GA4 returns userType as 'new' or 'returning' (sometimes 'not set')
   return (
     response.rows?.map((row) => ({
-      userType: row.dimensionValues?.[0].value, // 'new' | 'returning' | '(not set)'
-      activeUsers: Number(row.metricValues?.[0].value || 0),
-      sessions: Number(row.metricValues?.[1].value || 0),
+      userType: row.dimensionValues?.[0]?.value, // 'new' | 'returning' | '(not set)'
+      activeUsers: Number(row.metricValues?.[0]?.value || 0),
+      sessions: Number(row.metricValues?.[1]?.value || 0),
     })) || []
   );
 });

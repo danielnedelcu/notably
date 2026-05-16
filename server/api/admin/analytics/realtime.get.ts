@@ -11,14 +11,14 @@ export default defineEventHandler(async () => {
 
   const totalActiveUsers =
     response.rows?.reduce(
-      (sum, row) => sum + Number(row.metricValues?.[0].value || 0),
+      (sum, row) => sum + Number(row.metricValues?.[0]?.value || 0),
       0,
     ) || 0;
 
   const byCountry =
     response.rows?.map((row) => ({
-      country: row.dimensionValues?.[0].value,
-      activeUsers: Number(row.metricValues?.[0].value || 0),
+      country: row.dimensionValues?.[0]?.value,
+      activeUsers: Number(row.metricValues?.[0]?.value || 0),
     })) || [];
 
   return {

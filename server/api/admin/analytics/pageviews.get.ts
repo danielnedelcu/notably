@@ -13,9 +13,9 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => ({
-      date: row.dimensionValues?.[0].value, // YYYYMMDD
-      pageViews: Number(row.metricValues?.[0].value || 0),
-      activeUsers: Number(row.metricValues?.[1].value || 0),
+      date: row.dimensionValues?.[0]?.value, // YYYYMMDD
+      pageViews: Number(row.metricValues?.[0]?.value || 0),
+      activeUsers: Number(row.metricValues?.[1]?.value || 0),
     })) || []
   );
 });

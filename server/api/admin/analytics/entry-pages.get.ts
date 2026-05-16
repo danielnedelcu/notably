@@ -19,11 +19,11 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => ({
-      landingPage: row.dimensionValues?.[0].value,
-      sessions: Number(row.metricValues?.[0].value || 0),
-      activeUsers: Number(row.metricValues?.[1].value || 0),
-      engagedSessions: Number(row.metricValues?.[2].value || 0),
-      averageSessionDurationSeconds: Number(row.metricValues?.[3].value || 0),
+      landingPage: row.dimensionValues?.[0]?.value,
+      sessions: Number(row.metricValues?.[0]?.value || 0),
+      activeUsers: Number(row.metricValues?.[1]?.value || 0),
+      engagedSessions: Number(row.metricValues?.[2]?.value || 0),
+      averageSessionDurationSeconds: Number(row.metricValues?.[3]?.value || 0),
     })) || []
   );
 });

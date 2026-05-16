@@ -14,10 +14,10 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => ({
-      path: row.dimensionValues?.[0].value,
-      title: row.dimensionValues?.[1].value,
-      pageViews: Number(row.metricValues?.[0].value || 0),
-      activeUsers: Number(row.metricValues?.[1].value || 0),
+      path: row.dimensionValues?.[0]?.value,
+      title: row.dimensionValues?.[1]?.value,
+      pageViews: Number(row.metricValues?.[0]?.value || 0),
+      activeUsers: Number(row.metricValues?.[1]?.value || 0),
     })) || []
   );
 });

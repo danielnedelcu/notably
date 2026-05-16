@@ -13,9 +13,9 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => ({
-      device: row.dimensionValues?.[0].value, // 'mobile' | 'desktop' | 'tablet'
-      activeUsers: Number(row.metricValues?.[0].value || 0),
-      sessions: Number(row.metricValues?.[1].value || 0),
+      device: row.dimensionValues?.[0]?.value, // 'mobile' | 'desktop' | 'tablet'
+      activeUsers: Number(row.metricValues?.[0]?.value || 0),
+      sessions: Number(row.metricValues?.[1]?.value || 0),
     })) || []
   );
 });
