@@ -5,15 +5,17 @@ export default defineEventHandler(async () => {
 
   const [response] = await client.runReport({
     property: getGA4Property(),
-    dateRanges: [{ startDate: "180daysAgo", endDate: "today" }],
-    dimensions: [{ name: "date" }],
+    dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+    dimensions: [{ name: "pagePath" }, { name: "pageTitle" }],
     metrics: [{ name: "screenPageViews" }, { name: "activeUsers" }],
-    orderBys: [{ dimension: { dimensionName: "date" } }],
+    orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
+    limit: 10,
   });
 
   return (
     response.rows?.map((row) => ({
-      date: row.dimensionValues?.[0].value, // YYYYMMDD
+      path: row.dimensionValues?.[0].value,
+      title: row.dimensionValues?.[1].value,
       pageViews: Number(row.metricValues?.[0].value || 0),
       activeUsers: Number(row.metricValues?.[1].value || 0),
     })) || []
