@@ -21,9 +21,9 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => ({
-      eventName: row.dimensionValues?.[0].value,
-      eventCount: Number(row.metricValues?.[0].value || 0),
-      totalUsers: Number(row.metricValues?.[1].value || 0),
+      eventName: row.dimensionValues?.[0]?.value,
+      eventCount: Number(row.metricValues?.[0]?.value || 0),
+      totalUsers: Number(row.metricValues?.[1]?.value || 0),
     })) || []
   );
 });

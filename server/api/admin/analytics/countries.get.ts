@@ -14,10 +14,10 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => ({
-      country: row.dimensionValues?.[0].value,
-      countryCode: row.dimensionValues?.[1].value, // ISO 3166-1 alpha-2
-      activeUsers: Number(row.metricValues?.[0].value || 0),
-      sessions: Number(row.metricValues?.[1].value || 0),
+      country: row.dimensionValues?.[0]?.value,
+      countryCode: row.dimensionValues?.[1]?.value, // ISO 3166-1 alpha-2
+      activeUsers: Number(row.metricValues?.[0]?.value || 0),
+      sessions: Number(row.metricValues?.[1]?.value || 0),
     })) || []
   );
 });

@@ -25,15 +25,15 @@ export default defineEventHandler(async () => {
   return {
     browsers:
       browsers[0].rows?.map((row) => ({
-        browser: row.dimensionValues?.[0].value,
-        activeUsers: Number(row.metricValues?.[0].value || 0),
-        sessions: Number(row.metricValues?.[1].value || 0),
+        browser: row.dimensionValues?.[0]?.value,
+        activeUsers: Number(row.metricValues?.[0]?.value || 0),
+        sessions: Number(row.metricValues?.[1]?.value || 0),
       })) || [],
     operatingSystems:
       oses[0].rows?.map((row) => ({
-        os: row.dimensionValues?.[0].value,
-        activeUsers: Number(row.metricValues?.[0].value || 0),
-        sessions: Number(row.metricValues?.[1].value || 0),
+        os: row.dimensionValues?.[0]?.value,
+        activeUsers: Number(row.metricValues?.[0]?.value || 0),
+        sessions: Number(row.metricValues?.[1]?.value || 0),
       })) || [],
   };
 });

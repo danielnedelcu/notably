@@ -27,15 +27,15 @@ export default defineEventHandler(async () => {
 
   return (
     response.rows?.map((row) => {
-      const path = row.dimensionValues?.[0].value || "";
+      const path = row.dimensionValues?.[0]?.value || "";
       // Strip "/posts/" prefix and any trailing slash to get the slug
       const slug = path.replace(/^\/posts\//, "").replace(/\/$/, "");
       return {
         path,
         slug,
-        title: row.dimensionValues?.[1].value || humanizeSlug(slug),
-        views: Number(row.metricValues?.[0].value || 0),
-        activeUsers: Number(row.metricValues?.[1].value || 0),
+        title: row.dimensionValues?.[1]?.value || humanizeSlug(slug),
+        views: Number(row.metricValues?.[0]?.value || 0),
+        activeUsers: Number(row.metricValues?.[1]?.value || 0),
       };
     }) || []
   );
