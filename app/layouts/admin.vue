@@ -145,10 +145,16 @@
                       <div
                         class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
                       >
+                        <img
+                          v-if="activeTeam?.logo.startsWith('/')"
+                          :src="activeTeam.logo"
+                          :alt="activeTeam.name"
+                          class="size-8 object-cover"
+                        />
                         <Icon
-                          v-if="activeTeam"
+                          v-else-if="activeTeam"
                           mode="svg"
-                          :name="activeTeam?.logo"
+                          :name="activeTeam.logo"
                           class="size-4"
                         />
                       </div>
@@ -160,14 +166,14 @@
                           activeTeam?.plan
                         }}</span>
                       </div>
-                      <Icon
+                      <!-- <Icon
                         mode="svg"
                         name="lucide:chevrons-up-down"
                         class="ml-auto"
-                      />
+                      /> -->
                     </UiSidebarMenuButton>
                   </UiDropdownMenuTrigger>
-                  <UiDropdownMenuContent
+                  <!-- <UiDropdownMenuContent
                     class="w-(--reka-dropdown-menu-trigger-width) min-w-56 rounded-lg"
                     align="start"
                     :side="isMobile ? 'bottom' : 'right'"
@@ -208,7 +214,7 @@
                         Add team
                       </div>
                     </UiDropdownMenuItem>
-                  </UiDropdownMenuContent>
+                  </UiDropdownMenuContent> -->
                 </UiDropdownMenu>
               </UiSidebarMenuItem>
             </UiSidebarMenu>
@@ -514,9 +520,9 @@ const data = {
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
-      logo: "lucide:audio-waveform",
-      plan: "Startup",
+      name: "Notably",
+      logo: "/notably-mark.svg",
+      plan: "",
     },
     {
       name: "Evil Corp.",
