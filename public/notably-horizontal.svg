@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" width="360" height="96">
+  <title>Notably</title>
+  <rect x="8" y="0" width="80" height="80" rx="8" fill="#fb923c"/>
+  <rect x="0" y="16" width="80" height="80" rx="8" fill="#9a3412"/>
+  <text x="40" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="66" font-style="italic" font-weight="400" fill="#fff7ed" text-anchor="middle">n</text>
+  <text x="108" y="68" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="400" fill="#431407" letter-spacing="-0.015em">notably</text>
+</svg>

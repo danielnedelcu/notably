@@ -2,7 +2,7 @@
   <UiCard class="relative gap-0 overflow-hidden shadow-xs">
     <UiCardHeader>
       <div class="flex items-center justify-between">
-        <UiCardTitle>Most Active Posts</UiCardTitle>
+        <UiCardTitle>Most Viewed Posts</UiCardTitle>
         <UiButton
           variant="ghost"
           size="icon-sm"
